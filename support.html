@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+      <div>
+        !
+      </div>
+    </body>
+</html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>рж▓рж╛ржЗржн ржЪрзНржпрж╛ржЯ </title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    
+    <style>
+        /* --- bKash Theme CSS --- */
+        :root { 
+            --primary: #E2136E; 
+            --primary-light: #FDEAF3;
+            --bg: #F2F2F2;
+            --white: #FFFFFF;
+            --user-msg-bg: #E2136E;
+            --bot-msg-bg: #FFFFFF;
+            --text-dark: #333;
+            --text-light: #777;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg); height: 100vh; display: flex; flex-direction: column; }
+
+        /* HEADER DESIGN */
+        .chat-header {
+            background: var(--primary);
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between; /* ржжрзБржЗ ржкрж╛рж╢рзЗ ржарзЗрж▓рзЗ ржжрж┐ржмрзЗ */
+            align-items: center; /* рж▓ржорзНржмрж╛рж▓ржорзНржмрж┐ ржорж╛ржЭржЦрж╛ржирзЗ рж░рж╛ржЦржмрзЗ */
+            box-shadow: 0 4px 15px rgba(226, 19, 110, 0.3);
+            z-index: 10;
+        }
+
+        /* ржмрж╛ржо ржкрж╛рж╢рзЗрж░ ржЕржВрж╢ */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .agent-img {
+            width: 42px; height: 42px;
+            background: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1.3rem;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .header-info h3 { font-size: 1rem; font-weight: 700; line-height: 1.2; }
+        .header-info p { font-size: 0.75rem; opacity: 0.9; display: flex; align-items: center; gap: 5px; }
+        .status-dot { width: 8px; height: 8px; background: #00FF00; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #00FF00; }
+
+        /* --- NEW HOME BUTTON STYLE --- */
+        .btn-home {
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 50px; /* Pill Shape */
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* ржЖржЗржХржи ржУ рж▓рзЗржЦрж╛рж░ ржорж╛ржЭрзЗрж░ ржЧрзНржпрж╛ржк */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            /* Animation */
+            animation: glow-pulse 2s infinite;
+        }
+
+        .btn-home:active { transform: scale(0.95); }
+
+        /* ржмрж╛ржЯржи ржПржирж┐ржорзЗрж╢ржи */
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* CHAT BODY */
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            scroll-behavior: smooth;
+        }
+
+        /* MESSAGE BUBBLES */
+        .message-row { display: flex; width: 100%; margin-bottom: 5px; }
+        .message-row.bot { justify-content: flex-start; }
+        .message-row.user { justify-content: flex-end; }
+
+        .bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            animation: popIn 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* Bot Style */
+        .bot .bubble {
+            background: var(--bot-msg-bg);
+            color: var(--text-dark);
+            border-radius: 20px 20px 20px 5px;
+        }
+        /* User Style */
+        .user .bubble {
+            background: var(--user-msg-bg);
+            color: white;
+            border-radius: 20px 20px 5px 20px;
+        }
+
+        /* OPTIONS AREA (Chips) */
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+            max-width: 85%;
+        }
+        .option-chip {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            animation: fadeIn 0.5s;
+        }
+        .option-chip:active {
+            background: var(--primary);
+            color: white;
+            transform: scale(0.95);
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* TYPING INDICATOR */
+        .typing { font-size: 0.8rem; color: #888; margin-left: 10px; display: none; margin-bottom: 10px; }
+        .typing span { animation: blink 1.4s infinite both; }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes blink { 0% { opacity: 0.2; } 20% { opacity: 1; } 100% { opacity: 0.2; } }
+
+        /* FOOTER */
+        .chat-footer {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #aaa;
+            background: #fff;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="chat-header">
+        
+        <!-- ржмрж╛ржо ржкрж╛рж╢рзЗрж░ ржПржЬрзЗржирзНржЯ ржЗржиржлрзЛ -->
+        <div class="header-left">
+            <div class="agent-img"><i class="fas fa-headset"></i></div>
+            <div class="header-info">
+                <h3>Support</h3>
+                <p><span class="status-dot"></span>Online</p>
+            </div>
+        </div>
+
+        <!-- ржбрж╛ржи ржкрж╛рж╢рзЗрж░ рж╣рзЛржо ржмрж╛ржЯржи (Pill Shape) -->
+        <!-- href ржПрж░ ржЬрж╛рзЯржЧрж╛рзЯ ржЖржкржирж╛рж░ рж▓рж┐ржВржХ ржжрж┐ржи -->
+        <a href="https://google.com" class="btn-home">
+            <i class="fas fa-home"></i> Home
+        </a>
+
+    </div>
+
+    <!-- Chat Area -->
+    <div id="chat-body" class="chat-body">
+        
+        <!-- Welcome Message (Bot) -->
+        <div class="message-row bot">
+            <div class="bubble">
+                ржЖрж╕рж╕рж╛рж▓рж╛ржорзБ ржЖрж▓рж╛ржЗржХрзБржо! ЁЯСЛ<br>
+                ржЖржкржирж╛ржХрзЗ ржХрж┐ржнрж╛ржмрзЗ рж╕рж╛рж╣рж╛ржпрзНржп ржХрж░рждрзЗ ржкрж╛рж░рж┐?
+            </div>
+        </div>
+
+        <!-- Options will be injected here via JS -->
+    </div>
+
+    <!-- Typing Indicator -->
+    <div id="typing-indicator" class="typing">
+        Support is typing <span>.</span><span>.</span><span>.</span>
+    </div>
+
+    <div class="chat-footer">
+        Secured by bKash System
+    </div>
+
+    <script>
+        const chatBody = document.getElementById('chat-body');
+        const typingInd = document.getElementById('typing-indicator');
+
+        // --- ржкрзНрж░рж╢рзНржирзЛрждрзНрждрж░ ржбрж╛ржЯрж╛ржмрзЗржЬ ---
+        const qaData = [
+            { id: 'withdraw', q: "ржЙржЗржержбрзНрж░ ржкрзЗржирзНржбрж┐ржВ ржЖржЫрзЗ тП│", a: "ржЪрж┐ржирзНрждрж╛ ржХрж░ржмрзЗржи ржирж╛! рж╕рж╛рж░рзНржнрж╛рж░ ржЬрзНржпрж╛ржорзЗрж░ ржХрж╛рж░ржгрзЗ ржорж╛ржЭрзЗ ржорж╛ржЭрзЗ ржПржХржЯрзБ ржжрзЗрж░рж┐ рж╣рждрзЗ ржкрж╛рж░рзЗред ржЖржкржирж╛рж░ ржкрзЗржорзЗржирзНржЯ рзирзк ржШржирзНржЯрж╛рж░ ржоржзрзНржпрзЗ ржХрзНрж▓рж┐рзЯрж╛рж░ рж╣рзЯрзЗ ржпрж╛ржмрзЗред ржжрзЯрж╛ ржХрж░рзЗ ржзрзИрж░рзНржп ржзрж░рзБржиред ржЖржкржирж╛рж░ ржЯрж╛ржХрж╛ ржирж┐рж░рж╛ржкржж ржЖржЫрзЗред" },
+            { id: 'task', q: "ржЯрж╛ржХрж╛ ржЬржорж╛ рж╣ржЪрзНржЫрзЗ ржирж╛ тЭМ", a: "ржЯрж╛рж╕рзНржХ ржХржоржкрзНрж▓рж┐ржЯ ржХрж░рж╛рж░ рж╕ржорзЯ ржУрзЯрзЗржмрж╕рж╛ржЗржЯ ржмрж╛ ржнрж┐ржбрж┐ржУрждрзЗ ржЕржирзНрждржд рззрзж-рззрзл рж╕рзЗржХрзЗржирзНржб ржЕржкрзЗржХрзНрж╖рж╛ ржХрж░ржмрзЗржиред рж╕рж╛ржерзЗ рж╕рж╛ржерзЗ ржмрзНржпрж╛ржХ ржХрж░рж▓рзЗ рж╕рж┐рж╕рзНржЯрзЗржо ржХрж╛ржЙржирзНржЯ ржХрж░рждрзЗ ржкрж╛рж░рзЗ ржирж╛ред ржЕрзНржпрж╛ржк рж░рж┐ржлрзНрж░рзЗрж╢ ржХрж░рзЗ ржЖржмрж╛рж░ ржЪрзЗрж╖рзНржЯрж╛ ржХрж░рзБржиред" },
+            { id: 'ref', q: "рж░рзЗржлрж╛рж░ ржмрзЛржирж╛рж╕ ржкрж╛ржЗржирж┐ ЁЯОБ", a: "ржмрзЛржирж╛рж╕ ржкрж╛ржУрзЯрж╛рж░ ржЬржирзНржп ржЖржкржирж╛рж░ ржмржирзНржзрзБржХрзЗ ржЕржмрж╢рзНржпржЗ ржЖржкржирж╛рж░ рж▓рж┐ржВржХрзЗ ржЬрзЯрзЗржи ржХрж░рзЗ ржЕржирзНрждржд рззржЯрж┐ ржХрж╛ржЬ рж╕ржорзНржкржирзНржи ржХрж░рждрзЗ рж╣ржмрзЗред ржлрзЗржЗржХ рж░рзЗржлрж╛рж░ ржХрж░рж▓рзЗ ржмрзЛржирж╛рж╕ ржжрзЗржУрзЯрж╛ рж╣рзЯ ржирж╛ред" },
+            { id: 'contact', q: "ржЕрзНржпрж╛ржбржорж┐ржирзЗрж░ рж╕рж╛ржерзЗ ржХржерж╛ ржмрж▓ржмрзЛ ЁЯУЮ", a: "ржЕржмрж╢рзНржпржЗред ржЖржорж╛ржжрзЗрж░ ржЯрзЗрж▓рж┐ржЧрзНрж░рж╛ржо ржЧрзНрж░рзБржкрзЗ ржЬрзЯрзЗржи ржХрж░рзБржи ржЕржержмрж╛ @YourAdminUsername ржП ржорзЗрж╕рзЗржЬ ржжрж┐ржиред ржзржирзНржпржмрж╛ржжред" }
+        ];
+
+        // --- ржлрж╛ржВрж╢ржи: ржЕржкрж╢ржи рж╢рзЛ ржХрж░рж╛ ---
+        function showOptions() {
+            if(document.querySelector('.options-container')) return;
+
+            const div = document.createElement('div');
+            div.className = 'message-row bot'; 
+            
+            let html = `<div class="options-container">`;
+            qaData.forEach(item => {
+                html += `<button class="option-chip" onclick="handleUserClick('${item.id}', '${item.q}')">${item.q}</button>`;
+            });
+            html += `</div>`;
+            
+            div.innerHTML = html;
+            chatBody.appendChild(div);
+            scrollToBottom();
+        }
+
+        // --- ржлрж╛ржВрж╢ржи: ржЗржЙржЬрж╛рж░ ржпржЦржи ржЕржкрж╢ржирзЗ ржХрзНрж▓рж┐ржХ ржХрж░ржмрзЗ ---
+        function handleUserClick(id, questionText) {
+            const optContainer = document.querySelector('.options-container');
+            if(optContainer) {
+                optContainer.parentElement.remove();
+            }
+
+            appendMessage(questionText, 'user');
+            showTyping(true);
+
+            setTimeout(() => {
+                showTyping(false);
+                const answer = qaData.find(d => d.id === id).a;
+                appendMessage(answer, 'bot');
+
+                setTimeout(() => {
+                    appendMessage("ржЖрж░ ржХрзЛржирзЛ рж╕рж╛рж╣рж╛ржпрзНржп рж▓рж╛ржЧржмрзЗ?", 'bot');
+                    showOptions();
+                }, 1000);
+
+            }, 1500);
+        }
+
+        // --- ржлрж╛ржВрж╢ржи: ржорзЗрж╕рзЗржЬ ржмрж╛ржмрж▓ рждрзИрж░рж┐ ржХрж░рж╛ ---
+        function appendMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = `message-row ${sender}`;
+            div.innerHTML = `<div class="bubble">${text}</div>`;
+            chatBody.appendChild(div);
+            scrollToBottom();
+        }
+
+        function showTyping(show) {
+            typingInd.style.display = show ? 'block' : 'none';
+            if(show) scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        window.onload = () => {
+            setTimeout(showOptions, 1000);
+        };
+
+    </script>
+</body>
+</html>
