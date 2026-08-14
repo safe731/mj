@@ -652,7 +652,7 @@
         window.watchAd = () => {
             const now = Date.now();
             const last = userData.lastAdTime || 0;
-            const breakTime = (config.adBreak || 1) * 60 * 1000; 
+            const breakTime = (config.adBreak || 1) * 1000; 
             if(now - last < breakTime) return toast(`Wait ${Math.ceil((breakTime - (now - last))/60000)} mins.`);
             
             const sdkName = `show_${config.adZone}`;
