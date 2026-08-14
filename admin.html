@@ -148,8 +148,8 @@
                             </div>
                         </div>
                         <div class="input-group">
-                            <label>Break Time (Minutes) after Limit</label>
-                            <input id="c-break-time" type="number" class="form-control" placeholder="e.g. 60 (1 Hour)">
+                            <label>Break Time (Seconds) after Limit</label>
+<input id="c-break-time" type="number" class="form-control" placeholder="e.g. 60 (60 Seconds)">
                         </div>
                     </div>
 
@@ -272,6 +272,7 @@
                 // NEW INPUTS
                 document.getElementById('c-max-ads').value = c.maxAds || 10;
                 document.getElementById('c-break-time').value = c.adBreak || 60;
+ 
             });
 
             // 2. FETCH STATS
